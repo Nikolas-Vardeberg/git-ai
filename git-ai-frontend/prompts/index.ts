@@ -11,6 +11,8 @@ Guidelines:
 - Adapt tone and wording according to 'Tone' (e.g., formal, casual, professional, playful).
 - Match 'Length' (e.g., short, medium, detailed) while keeping it a single-line title.
 - Base the title on the overall context — not the git diff itself.
+- Do not use internal file names, snake_case, or underscores in the title.
+
 
 Configuration:
   - Conventional commits: casual
