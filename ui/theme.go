@@ -37,43 +37,12 @@ func GetCurrentTheme() *themes.Theme {
 func GetAvailableThemes() []string {
 	return []string{
 		"catppuccin",
-		"tokyo",
-		"nord",
-		"dracula",
-		"gruvbox-dark",
-		"onedark",
-		"monokai",
-		"solarized-dark",
-		"everforest-dark",
-		"flexoki-dark",
-		"solarized-light",
-		"github-light",
-		"gruvbox-light",
-		"flexoki-light",
 	}
 }
 
 func GetDarkThemes() []string {
 	return []string{
 		"catppuccin",
-		"tokyo",
-		"nord",
-		"dracula",
-		"gruvbox-dark",
-		"onedark",
-		"monokai",
-		"solarized-dark",
-		"everforest-dark",
-		"flexoki-dark",
-	}
-}
-
-func GetLightThemes() []string {
-	return []string{
-		"solarized-light",
-		"github-light",
-		"gruvbox-light",
-		"flexoki-light",
 	}
 }
 
