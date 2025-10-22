@@ -1,4 +1,4 @@
-module gitAi
+module gitai
 
 go 1.25.3
 

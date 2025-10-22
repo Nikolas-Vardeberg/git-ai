@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"gitAi/commit"
+	"gitai/commit"
 
 	"github.com/spf13/cobra"
 )

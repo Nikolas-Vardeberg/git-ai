@@ -1,8 +1,6 @@
 package commit
 
-import (
-	"gitAi/groq"
-)
+import "gitai/groq"
 
 func CreateCommitMessage(gitDiff string) (string, error) {
 	commitMessage, err := groq.CreateCommitMessageWithGroq(gitDiff)

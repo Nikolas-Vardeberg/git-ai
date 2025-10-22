@@ -2,8 +2,8 @@ package commit
 
 import (
 	"fmt"
-	"gitAi/git"
-	"gitAi/ui"
+	"gitai/git"
+	"gitai/ui"
 	"os"
 
 	"github.com/spf13/cobra"

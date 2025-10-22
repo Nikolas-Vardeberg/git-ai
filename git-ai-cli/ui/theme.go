@@ -1,7 +1,7 @@
 package ui
 
 import (
-	"gitAi/ui/themes"
+	"gitai/ui/themes"
 	"os"
 	"path/filepath"
 	"strings"

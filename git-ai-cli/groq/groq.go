@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"gitAi/server"
+	"gitai/server"
 	"io"
 	"net/http"
 	"time"

@@ -1,10 +1,7 @@
-/*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
-*/
 package main
 
-import "gitAi/cmd"
+import "gitai/cmd"
+
 
 func main() {
 	cmd.Execute()

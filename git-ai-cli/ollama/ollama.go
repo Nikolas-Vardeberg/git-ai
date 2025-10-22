@@ -29,9 +29,6 @@ type GenerateResponse struct {
 }
 
 func MainStream(prompt string) (string, error) {
-	fmt.Print("OLLAMA RECIVED")
-	fmt.Print(prompt)
-	fmt.Print("OLLAMA RECIVED END")
 	req := GenerateRequest{
 		Model:  model,
 		Prompt: prompt,
