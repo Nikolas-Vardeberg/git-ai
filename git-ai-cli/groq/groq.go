@@ -5,22 +5,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"gitAi/config"
 	"gitAi/server"
-	"gitAi/version"
 	"io"
 	"net/http"
-	"runtime"
 	"time"
 )
 
 type CommitRequest struct {
 	GitDiff    string             `json:"gitDiff"`
-	Version    string             `json:"version"`
-	Name       string             `json:"name"`
-	RepoName   string             `json:"repoName"`
-	UserConfig *config.UserConfig `json:"userConfig"`
-	System         string             `json:"system,omitempty"`
 }
 
 type commitData struct {
@@ -35,9 +27,7 @@ type commitResp struct {
 func CreateCommitMessageWithGroq(gitDiff string) (string, error) {
 
 	payload := CommitRequest{
-		Version:    version.Get(),
 		GitDiff:    gitDiff,
-		System:         getOS(),
 	}
 
 	buf, err := json.Marshal(payload)
@@ -86,8 +76,4 @@ func CreateCommitMessageWithGroq(gitDiff string) (string, error) {
 	}
 
 	return out.Data.CommitMessage, nil
-}
-
-func getOS() string {
-	return runtime.GOOS
 }
