@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 400, error: "Missing gitDiff" });
     }
 
-    const response = await axios.post("http://127.0.0.1:11434/api/generate", {
+    const response = await axios.post(process.env.OLLAMA_SERVER!, {
       model: "mistral:instruct",
       prompt: CreateCommitPrompt(gitDiff),
       stream: false,
@@ -22,11 +22,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       data: { commitMessage },
     });
-  } catch (error: any) {
-    console.error("API /commit error:", error.message);
-    return NextResponse.json({
-      status: 500,
-      error: error.message || "Internal Server Error",
-    });
+  } catch (error) {
+    NextResponse.json({ error });
   }
 }
