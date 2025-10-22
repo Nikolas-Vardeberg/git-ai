@@ -32,10 +32,9 @@ type commitResp struct {
 	Data  *commitData `json:"data,omitempty"`
 }
 
-func CreateCommitMessageWithGroq(gitDiff string, userConfig *config.UserConfig) (string, error) {
+func CreateCommitMessageWithGroq(gitDiff string) (string, error) {
 
 	payload := CommitRequest{
-		UserConfig: userConfig,
 		Version:    version.Get(),
 		GitDiff:    gitDiff,
 		System:         getOS(),

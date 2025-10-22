@@ -39,7 +39,7 @@ func Load() (*UserConfig, error) {
 		return nil, err
 	}
 
-	configPath := filepath.Join(gitRoot, ".git", "diny-config.json")
+	configPath := filepath.Join(gitRoot, ".git", "gitai-config.json")
 
 	config, err := tryLoadConfig(configPath)
 	if err != nil {

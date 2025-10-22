@@ -2,7 +2,6 @@ package commit
 
 import (
 	"fmt"
-	"gitAi/config"
 	"gitAi/git"
 	"gitAi/ui"
 	"os"
@@ -13,10 +12,10 @@ import (
 func Main(cmd *cobra.Command, args []string) {
 	printMode, _ := cmd.Flags().GetBool("print")
 
-	diff, userConfig := getCommitData(printMode)
+	diff := getCommitData(printMode)
 
 	if printMode {
-		commitMessage, err := CreateCommitMessage(diff, userConfig)
+		commitMessage, err := CreateCommitMessage(diff)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error generating commit message: %v\n", err)
 			os.Exit(1)
@@ -28,7 +27,7 @@ func Main(cmd *cobra.Command, args []string) {
 	var commitMessage string
 	err := ui.WithSpinner("Generating your commit message...", func() error {
 		var genErr error
-		commitMessage, genErr = CreateCommitMessage(diff, userConfig)
+		commitMessage, genErr = CreateCommitMessage(diff)
 		return genErr
 	})
 
@@ -37,10 +36,10 @@ func Main(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	HandleCommitFlow(commitMessage, diff, userConfig)
+	HandleCommitFlow(commitMessage, diff)
 }
 
-func getCommitData(isQuietMode bool) (string, *config.UserConfig) {
+func getCommitData(isQuietMode bool) (string) {
 	gitDiff, err := git.GetGitDiff()
 
 	if err != nil {
@@ -61,16 +60,5 @@ func getCommitData(isQuietMode bool) (string, *config.UserConfig) {
 		os.Exit(0)
 	}
 
-	// Load config
-	userConfig, err := config.Load()
-	if err != nil {
-		if isQuietMode {
-			fmt.Fprintf(os.Stderr, "Failed to load config: %v\n", err)
-		} else {
-			ui.Box(ui.BoxOptions{Message: fmt.Sprintf("Failed to load config: %v", err), Variant: ui.Error})
-		}
-		os.Exit(1)
-	}
-
-	return gitDiff, userConfig
+	return gitDiff
 }
