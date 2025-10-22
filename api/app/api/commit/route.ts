@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { Prompt } from "@/prompts";
+import { CreateCommitPrompt } from "@/prompts";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     const response = await axios.post("http://127.0.0.1:11434/api/generate", {
       model: "mistral:instruct",
-      prompt: Prompt(gitDiff),
+      prompt: CreateCommitPrompt(gitDiff),
       stream: false,
     });
 
