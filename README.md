@@ -38,3 +38,6 @@ gitai commit # generates a commit title from your git diff
 gitai review # generates a code review with ai
 gitai timeline # shows commits 
 ```
+
+<img width="536" height="184" alt="Skjermbilde 2025-10-22 kl  12 31 44" src="https://github.com/user-attachments/assets/7667d1d3-2ba3-4623-ad19-69c5dc11fbb4" />
+<img width="1244" height="416" alt="Skjermbilde 2025-10-22 kl  12 32 03" src="https://github.com/user-attachments/assets/0afd1bc5-935b-4a98-a032-203e41327284" />
