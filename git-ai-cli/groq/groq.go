@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"gitAi/config"
-	"gitAi/git"
 	"gitAi/server"
 	"gitAi/version"
 	"io"
@@ -34,15 +33,11 @@ type commitResp struct {
 }
 
 func CreateCommitMessageWithGroq(gitDiff string, userConfig *config.UserConfig) (string, error) {
-	gitName := git.GetGitName()
-	repoName := git.GetRepoName()
 
 	payload := CommitRequest{
 		UserConfig: userConfig,
 		Version:    version.Get(),
 		GitDiff:    gitDiff,
-		Name:       gitName,
-		RepoName:   repoName,
 		System:         getOS(),
 	}
 
