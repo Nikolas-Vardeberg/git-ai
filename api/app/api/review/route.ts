@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import { CreateReviewPrompt } from "@/prompts";
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       data: { reviewMessage },
     });
-  } catch (error) {
+  } catch (error: any) {
     NextResponse.json({ error });
   }
 }
