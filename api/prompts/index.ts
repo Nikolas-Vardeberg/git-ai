@@ -30,146 +30,103 @@ ${gitDiff}
 ### Output
 Now write ONLY the Git commit title — one single line, plain text, no quotes or formatting:`;
 
-export const CreateReviewPrompt = (
-  gitDiff: string
-) => `Code Review Expert: Detailed Analysis and Best Practices
+export const CreateReviewPrompt = (gitDiff: string) => `
+Code Review Expert: Detailed Analysis and Best Practices
 
-As a senior software engineer with expertise in code quality, security, and performance optimization, perform a code review of the provided git diff.
+As a senior software engineer, review the provided *git diff* and produce a high-quality code review.
 
-Focus on delivering actionable feedback in the following areas:
+Your output **must** focus on clear, actionable bullet points with emojis indicating priority and type.
 
-Critical Issues:
+Your review must include:
 
-Security vulnerabilities and potential exploits
+---
 
-Runtime errors and logic bugs
+## 🔍 **What to Check**
+Provide bullet-pointed lists of what needs to be approved or addressed in each of the following categories:
 
-Performance bottlenecks and optimization opportunities
+### 🛡 Critical Issues
+- Security vulnerabilities and potential exploits  
+- Runtime errors & logic bugs  
+- Performance bottlenecks  
+- Memory handling & resource use  
+- Concurrency considerations  
+- Input validation & error handling  
 
-Memory management and resource utilization
+### 📦 Code Quality
+- Naming conventions  
+- Readability  
+- API design patterns  
+- Architecture & modularity  
+- Documentation completeness  
+- Test coverage gaps  
 
-Threading and concurrency issues
+### 🧩 Maintainability
+- Code duplication  
+- Complexity  
+- Coupling & dependencies  
+- Extensibility  
+- Technical debt  
 
-Input validation and error handling
+---
 
-Code Quality:
+## 📘 **Review Format Requirements**
 
-Adherence to language-specific conventions and best practices
+Produce the review using this exact structure:
 
-Design patterns and architectural considerations
+### ### **Code Review**
+Provide a short explanation of the overall review.
 
-Code organization and modularity
+---
 
-Naming conventions and code readability
+### **Suggestions**
+For each suggestion, follow this format:
 
-Documentation completeness and clarity
+\`\`\`
+:emoji: Summary of the suggestion with context
 
-Test coverage and testing approach
+Priority: (🔥 Critical / ⚠️ High / 🟡 Medium / 🟢 Low)  
+File: relative/path/to/file  
+Lines: reference the + or - lines from the diff  
+Details: Describe the issue and why it matters  
+Example (optional): Show improved code if relevant  
+Suggested Change (optional): Code snippet showing the fix  
+\`\`\`
 
-Maintainability:
+### Use these emojis:
 
-Code duplication and reusability
+**Priorities**
+- 🔥 Critical
+- ⚠️ High  
+- 🟡 Medium  
+- 🟢 Low  
 
-Complexity metrics (cyclomatic complexity, cognitive complexity)
+**Suggestion Types**
+- 🔧 Required change  
+- ❓ Question  
+- ⛏️ Nitpick  
+- ♻️ Refactor  
+- 💭 Concern / thought  
+- 👍 Positive feedback  
+- 📝 Explanation / reference  
+- 🌱 Future consideration  
 
-Dependencies and coupling
+---
 
-Extensibility and future-proofing
+## 📌 Additional Rules
 
-Technical debt implications
+- **Always refer to file paths and specific line numbers from the diff.**
+- **If a line begins with + or -, treat it as added or removed.**
+- Identify all TODO comments and address them.
+- Do **not** overwhelm the developer. Prioritize top issues.
+- Do **not** include suppression directives such as \`#pragma warning disable\`.
+- Follow the project’s existing coding conventions.
+- Use markdown formatting for clarity.
+- Conclude with a **Summary** section containing the most important bullets for approval.
 
-Provide specific recommendations with:
+---
 
-Code examples for suggested improvements
-
-References to relevant documentation or standards
-
-Rationale for suggested changes
-
-Impact assessment of proposed modifications
-
-Format your review using clear sections and bullet points. Include inline code references where applicable.
-
-Note: This review should comply with the project's established coding standards and architectural guidelines.
-
-Constraints
-
-IMPORTANT: Use git --no-pager diff --no-prefix --unified=100000 --minimal $(git merge-base main --fork-point)...head to get the diff for code review.
-
-In the provided git diff, if the line starts with + or -, it means that the line is added or removed. If the line starts with a space, it means that the line is unchanged. If the line starts with @@, it means that the line is a hunk header.
-
-Avoid overwhelming the developer with too many suggestions at once.
-
-Use clear and concise language to ensure understanding.
-
-Assume suppressions are needed like #pragma warning disable and don't include them in the review.
-
-If there are any TODO comments, make sure to address them in the review.
-
-Use markdown for each suggestion, like:
-
-Code Review
-
-Should example of what the code could look like after applying the fix.
-
-Suggestions
-code_review_emoji Summary of the suggestion, include necessary context to understand suggestion}
-
-Priority: priority: (🔥/⚠️/🟡/🟢)
-
-File: relative/path/to/file
-
-Details: ...
-
-Example (if applicable): ...
-
-Suggested Change (if applicable): (code snippet...)
-
-(other suggestions...)
-Summary
-Use the following emojis to indicate priority:
-
-🔥 Critical
-
-⚠️ High
-
-🟡 Medium
-
-🟢 Low
-
-Each suggestion should be prefixed with an emoji to indicate the type of suggestion:
-
-🔧 Change request
-
-❓ Question
-
-⛏️ Nitpick
-
-♻️ Refactor suggestion
-
-💭 Thought process or concern
-
-👍 Positive feedback
-
-📝 Explanatory note or fun fact
-
-🌱 Observation for future consideration
-
-Always use file paths.
-
-Use Code Review Emojis
-
-Use code review emojis to give added context and clarity for follow-up. For example, use 🔧 for required changes, ⛏ for nitpicky comments, 📌 for follow-ups, 👍 for praise, and 🤔 for considerations.
-
-Emoji Legend
-Emoji	Code	Meaning
-🔧	:wrench:	Use when this needs to be changed. A concern or suggested change/refactor worth addressing.
-❓	:question:	Use for a well-formed question needing a response.
-⛏	:pick:	Nitpick. Stylistic or minor issue; often best handled via linting.
-♻️	:recycle:	Refactor suggestion. Should be actionable and not nitpicky.
-💭	:thought_balloon:	Express concern or alternative solution.
-👍	:+1:	Highlight positive code aspects.
-📝	:memo:	Explanatory note or relevant commentary.
-🌱	:seedling:	Observation or suggestion with long-term implications.
+## 📄 Git Diff
+\`\`\`diff
 ${gitDiff}
+\`\`\`
 `;
