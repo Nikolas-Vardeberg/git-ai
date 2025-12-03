@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
+import { generateText } from "ai";
 import { CreateReviewPrompt } from "@/prompts";
+
+const google = createGoogleGenerativeAI();
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,19 +14,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 400, error: "Missing gitDiff" });
     }
 
-    const response = await axios.post(process.env.OLLAMA_SERVER!, {
-      model: "mistral:instruct",
+    const { text } = await generateText({
+      model: google("gemini-2.5-flash"),
       prompt: CreateReviewPrompt(gitDiff),
-      stream: false,
     });
 
-    const reviewMessage =
-      response?.data?.response || "No commit message generated";
+    if (!text) {
+      return NextResponse.json({ status: 400, error: "Failed to generate" });
+    }
+
+    const reviewMessage = text || "No commit message generated";
 
     return NextResponse.json({
       data: { reviewMessage },
     });
-  } catch (error: any) {
-    NextResponse.json({ error });
+  } catch (error) {
+    console.log(error);
   }
 }
